@@ -14,11 +14,29 @@ function eventListeners(){
 function agregarIdea(e){
    e.preventDefault();
 
+   //Text area donde el usuario escribe
     const idea = document.querySelector('#idea').value;
 if(idea===""){
    mostrarError('Este campo no puede ir vacio');
     return; //Evita que se ejecuten mas lines de codigo
 }
+const ideaObj ={
+    id: Date.now(), //Utilizamos el metodo Date.now() para asignar un id
+    idea
+}
+
+//Añadir el arreglo de tweets
+ideas = [...ideas, ideaObj];
+
+console.log(ideas)
+
+
+//Una vez agregado creamos el HTML
+crearHTML()
+
+
+//Reiniciar el formulario
+formulario.reset()
 }
 
 
@@ -52,4 +70,30 @@ function mostrarError(error){
             mensajeError.remove();
         }, 2000);
 
+}
+
+//Muestra un listado de las ideas
+
+function crearHTML(){
+    limpiarHTML()
+    if(ideas.length>0){
+        ideas.forEach(idea => {
+            //Crear el HTML
+
+            const li = document.createElement('li');
+
+            li.textContent = idea.idea
+
+            listaIdeas.appendChild(li);
+        })
+
+    }
+}
+
+//Limpiar HTML
+
+function limpiarHTML(){
+    while(listaIdeas.firstChild){
+        listaIdeas.removeChild(listaIdeas.firstChild);
+    }
 }
