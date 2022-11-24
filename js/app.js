@@ -7,7 +7,21 @@ let ideas = [];
 eventListeners();
 
 function eventListeners(){
+
+    //Cuando el usuario ag
     formulario.addEventListener('submit', agregarIdea);
+
+
+    //Cuando el documento esta listo
+
+    document.addEventListener('DOMContentLoaded', () =>{
+        ideas = JSON.parse(localStorage.getItem('ideas'))|| []
+
+        console.log(ideas);
+        
+        crearHTML();
+
+    })
 }
 
 // Funciones
@@ -88,8 +102,15 @@ function crearHTML(){
         })
 
     }
+
+    sincronizarStorage()
 }
 
+//Agrega las ideas al LocalStorage
+
+function sincronizarStorage(){
+localStorage.setItem('ideas', JSON.stringify(ideas))
+}
 //Limpiar HTML
 
 function limpiarHTML(){
