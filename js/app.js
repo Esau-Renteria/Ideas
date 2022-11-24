@@ -92,11 +92,27 @@ function crearHTML(){
     limpiarHTML()
     if(ideas.length>0){
         ideas.forEach(idea => {
+            //Agregar boton eliminar
+            const btnEliminar = document.createElement('a');
+            btnEliminar.classList.add('borrar-idea')
+            btnEliminar.innerText = "x"
+
+
+            //Añadir la funcion eliminar
+            btnEliminar.onclick = () =>{
+                borrarIdea(idea.id)
+            }
+
+            
+            
             //Crear el HTML
 
             const li = document.createElement('li');
 
-            li.textContent = idea.idea
+           
+
+            li.innerText = idea.idea
+            li.appendChild(btnEliminar);
 
             listaIdeas.appendChild(li);
         })
@@ -111,6 +127,17 @@ function crearHTML(){
 function sincronizarStorage(){
 localStorage.setItem('ideas', JSON.stringify(ideas))
 }
+
+//Eliminar idea
+
+function borrarIdea(id){
+    ideas = ideas.filter(idea => idea.id !== id);
+
+    console.log(ideas)
+
+    crearHTML();
+}
+
 //Limpiar HTML
 
 function limpiarHTML(){
